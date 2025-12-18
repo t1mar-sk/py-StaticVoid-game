@@ -1,0 +1,20 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments (віртуальне середовище)
+.venv/
+venv/
+ENV/
+
+# IDEs (налаштування PyCharm / VS Code)
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# На майбутнє для ресурсів (якщо будуть тимчасові файли)
+*.log
