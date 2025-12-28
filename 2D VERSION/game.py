@@ -162,7 +162,23 @@ while running:
         case 'ingame':
             pass
         case 'inventory':
-            pass
+            class Inventory(Box, Logo):
+                # itemImgConf are not used in newer versions, they will load from the server. itemImgConf = ('image_path.png', scale)
+                # skins (list) also are not used in newer version, they will load form the server.
+                def __init__(self, screen, itemName, itemID, itemImgConf, x, y, w, h, color=(20, 20, 20)):
+                    Box.__init__(self, x, y, w +10, h +10 , color)
+                    Logo.__init__(self, x + 5, y + 5, itemImgConf[0], itemImgConf[1])
+
+                    self.itemName = itemName
+                    self.itemID = itemID
+                    self.screen = screen
+
+                def draw_(self):
+                    Box.draw(self, self.screen)
+                    Logo.draw(self, self.screen)
+
+            skins = [test_item = Inventory(screen, "AK-47 Test load skin", 1, ('/skins/AK47_N1.png', 1), 0,0,100,100),]
+
 
     pygame.display.flip()
     clock.tick(FPS)
