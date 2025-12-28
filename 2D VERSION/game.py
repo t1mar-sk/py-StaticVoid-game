@@ -128,8 +128,7 @@ gpanel = Box(0, 550, 1000, 50, (255, 69, 69))
 # -- Buttons --
 playb = Button(50, 180, 28.5 * 4, 50, "PLAY", (114, 31, 166), 36, 'basicfont.ttf', 0)
 inventoryb = Button(50, 240, 28.5 * 9 - 1, 50, "INVENTORY", (114, 31, 166), 36, 'basicfont.ttf', 0)
-friendb = Button(50, 300, 28.5 * 6.7 + 2, 50, "FRIENDS", (114, 31, 166), 36, 'basicfont.ttf', 0)
-exitb = Button(50, 360, 28.5 * 4 - 17, 50, "EXIT", (114, 31, 166), 36, 'basicfont.ttf', 0)
+exitb = Button(50, 300, 28.5 * 4 - 17, 50, "EXIT", (114, 31, 166), 36, 'basicfont.ttf', 0)
 
 running = True
 while running:
@@ -141,7 +140,6 @@ while running:
 
     match whereim:
         case 'menu':
-            # -- LOGIKA (in my heart) --
             mouse_pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
@@ -149,8 +147,6 @@ while running:
                         whereim = 'ingame'
                     if inventoryb.check_click(mouse_pos):
                         whereim = 'inventory'
-                    if friendb.check_click(mouse_pos):
-                        whereim = 'friends'
                     if exitb.check_click(mouse_pos):
                         running = False
 
@@ -161,12 +157,9 @@ while running:
 
             playb.draw(screen)
             inventoryb.draw(screen)
-            friendb.draw(screen)
             exitb.draw(screen)
 
         case 'ingame':
-            pass
-        case 'friends':
             pass
         case 'inventory':
             pass
