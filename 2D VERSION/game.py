@@ -120,7 +120,7 @@ class Button(Text):
     def check_click(self, mouse_pos):
         return self.rect.collidepoint(mouse_pos)
 
-# -- Configurate --
+# -- Menu Configurate --
 glogo = Logo(50, 50 , 'icon_ingame.png', 0.1)
 gname = Text(150, 50, 'StaticVoid', 36, (255,255,255), 'basicfont.ttf')
 gpanel = Box(0, 550, 1000, 50, (255, 69, 69))
@@ -129,6 +129,19 @@ gpanel = Box(0, 550, 1000, 50, (255, 69, 69))
 playb = Button(50, 180, 28.5 * 4, 50, "PLAY", (114, 31, 166), 36, 'basicfont.ttf', 0)
 inventoryb = Button(50, 240, 28.5 * 9 - 1, 50, "INVENTORY", (114, 31, 166), 36, 'basicfont.ttf', 0)
 exitb = Button(50, 300, 28.5 * 4 - 17, 50, "EXIT", (114, 31, 166), 36, 'basicfont.ttf', 0)
+
+# -- Game --
+class Player(Box):
+    def __init__(self, accountName):
+        super().__init__(screen_val[0]//2, screen_val[1]//2, 20,20,(117, 13, 0) )
+        self.hp = 0 # max 100
+        self.hunger = 0 # max 250
+        self.water = 0 #max 250
+        self.bleeding = 0 # unlimited
+        self.name = accountName
+        self.alive = True
+
+    #def main_logics(self):
 
 running = True
 while running:
@@ -167,7 +180,7 @@ while running:
                 # skins (list) also are not used in newer version, they will load form the server.
                 def __init__(self, screen, itemName, itemID, itemImgConf, x, y, w, h, color=(20, 20, 20)):
                     Box.__init__(self, x, y, w +10, h +10 , color)
-                    Logo.__init__(self, x + 5, y + 5, itemImgConf[0], itemImgConf[1])
+                    Logo.__init__(self, x + 10, y + 10, itemImgConf[0], itemImgConf[1])
 
                     self.itemName = itemName
                     self.itemID = itemID
@@ -177,7 +190,21 @@ while running:
                     Box.draw(self, self.screen)
                     Logo.draw(self, self.screen)
 
-            skins = [test_item = Inventory(screen, "AK-47 Test load skin", 1, ('/skins/AK47_N1.png', 1), 0,0,100,100),]
+            exitB = Button(5, 5, 30,30, "<", (0,0,0), 32, 'basicfont.ttf', 255)
+
+            skins = [
+                Inventory(screen, "AK-47 Test load skin", 1, ('skins/AK47_N1.png', 0.17), 0, 50, 50, 50, (20,20,255))
+            ]
+
+            for skin in skins:
+                skin.draw_()
+            exitB.draw_(screen)
+
+            mouse_pos = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    if exitB.check_click(mouse_pos):
+                        whereim = 'menu'
 
 
     pygame.display.flip()
