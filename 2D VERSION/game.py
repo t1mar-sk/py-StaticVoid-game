@@ -132,16 +132,45 @@ exitb = Button(50, 300, 28.5 * 4 - 17, 50, "EXIT", (114, 31, 166), 36, 'basicfon
 
 # -- Game --
 class Player(Box):
-    def __init__(self, accountName):
+    def __init__(self, accountName, accountID):
         super().__init__(screen_val[0]//2, screen_val[1]//2, 20,20,(117, 13, 0) )
         self.hp = 0 # max 100
         self.hunger = 0 # max 250
         self.water = 0 #max 250
         self.bleeding = 0 # unlimited
+        self.vel = 5
+
+        #Camera x,y
+        self.cx = 0
+        self.cy = 0
+
+        #Account details
         self.name = accountName
+        self.ID = accountID
         self.alive = True
 
-    #def main_logics(self):
+    def get_info(self):
+        return self.name, self.ID
+
+    def handle_input(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            self.cx -= self.vel
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            self.cx += self.vel
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
+            self.cy -= self.vel
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            self.cy += self.vel
+
+    def init(self):
+        super().draw(screen)
+        self.handle_input()
+        print(f"cx [{self.cx}] \n cy [{self.cy}]")
+
+player = Player("t1mar", "01")
+
+class Map()
 
 running = True
 while running:
@@ -173,7 +202,7 @@ while running:
             exitb.draw(screen)
 
         case 'ingame':
-            pass
+            player.init()
         case 'inventory':
             class Inventory(Box, Logo):
                 # itemImgConf are not used in newer versions, they will load from the server. itemImgConf = ('image_path.png', scale)
